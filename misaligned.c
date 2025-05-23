@@ -1,7 +1,6 @@
 #include <stdio.h>
-#include <assert.h>
+#include <stdlib.h>  // for exit
 
-// Function to print color map
 int printColorMap() {
     const char* majorColor[] = {"White", "Red", "Black", "Yellow", "Violet"};
     const char* minorColor[] = {"Blue", "Orange", "Green", "Brown", "Slate"};
@@ -9,18 +8,20 @@ int printColorMap() {
 
     for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 5; j++) {
-            // Deliberate bug: wrong minorColor index, changed to use i instead of j
+            // Deliberate bug: wrong minorColor index, using i instead of j
             printf("%d | %s | %s\n", count, majorColor[i], minorColor[i]);
             count++;
         }
     }
-    return count; // Return total count of color pairs
+    return count; // Returns 25
 }
 
-// Test function to validate color map printing, deliberately fails
 void testPrintColorMap() {
     int result = printColorMap();
-    assert(result == 20); // Fail: 25 expected, test expects wrong 20 causing assertion failure
+    if (result != 20) {  // We expect 20 based on a faulty assumption to fail test
+        fprintf(stderr, "Test failed: Expected 20 pairs but got %d\n", result);
+        exit(1);  // Force non-zero exit so failure is detected by CI
+    }
 }
 
 int main() {
