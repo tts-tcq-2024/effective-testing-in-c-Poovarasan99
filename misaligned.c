@@ -9,21 +9,22 @@ int printColorMap() {
 
     for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 5; j++) {
-            printf("%d | %s | %s\n", count, majorColor[i], minorColor[j]); // Fixed minorColor index
+            // Deliberate bug: wrong minorColor index, changed to use i instead of j
+            printf("%d | %s | %s\n", count, majorColor[i], minorColor[i]);
             count++;
         }
     }
     return count; // Return total count of color pairs
 }
 
-// Test function to validate color map printing
+// Test function to validate color map printing, deliberately fails
 void testPrintColorMap() {
     int result = printColorMap();
-    assert(result == 25); // Expect 25 pairs
+    assert(result == 20); // Fail: 25 expected, test expects wrong 20 causing assertion failure
 }
 
 int main() {
-    testPrintColorMap(); // Run tests
+    testPrintColorMap();
     printf("All is well (maybe!)\n");
     return 0;
 }
