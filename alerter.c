@@ -6,7 +6,7 @@ int alertFailureCount = 0;
 // Stub function to simulate network alert
 int networkAlertStub(float celcius) {
     printf("ALERT: Temperature is %.1f celcius.\n", celcius);
-    return 500; // Change this to simulate different responses
+    return 200; // Change this to simulate different responses
 }
 
 // Function to convert Fahrenheit to Celsius and alert
