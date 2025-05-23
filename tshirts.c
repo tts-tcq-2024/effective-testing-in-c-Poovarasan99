@@ -1,22 +1,28 @@
 #include <stdio.h>
 #include <assert.h>
 
+// Function to determine t-shirt size based on centimeters
 char size(int cms) {
-    char sizeName = '\0';
-    if(cms < 38) {
-        sizeName = 'S';
-    } else if(cms > 38 && cms < 42) {
-        sizeName = 'M';
-    } else if(cms > 42) {
-        sizeName = 'L';
+    if (cms < 38) {
+        return 'S'; // Small
+    } else if (cms >= 38 && cms < 42) {
+        return 'M'; // Medium
+    } else {
+        return 'L'; // Large
     }
-    return sizeName;
+}
+
+// Test function to validate size determination
+void testSize() {
+    assert(size(37) == 'S'); // Expect Small
+    assert(size(38) == 'M'); // Expect Medium (boundary case)
+    assert(size(40) == 'M'); // Expect Medium
+    assert(size(42) == 'L'); // Expect Large (boundary case)
+    assert(size(43) == 'L'); // Expect Large
 }
 
 int main() {
-    assert(size(37) == 'S');
-    assert(size(40) == 'M');
-    assert(size(43) == 'L');
+    testSize(); // Run tests
     printf("All is well (maybe!)\n");
     return 0;
 }
