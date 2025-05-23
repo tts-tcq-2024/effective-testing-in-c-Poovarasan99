@@ -3,30 +3,34 @@
 
 int alertFailureCount = 0;
 
+// Stub function to simulate network alert
 int networkAlertStub(float celcius) {
     printf("ALERT: Temperature is %.1f celcius.\n", celcius);
-    // Return 200 for ok
-    // Return 500 for not-ok
-    // stub always succeeds and returns 200
-    return 200;
+    return 500;
 }
 
+// Function to convert Fahrenheit to Celsius and alert
 void alertInCelcius(float farenheit) {
     float celcius = (farenheit - 32) * 5 / 9;
     int returnCode = networkAlertStub(celcius);
     if (returnCode != 200) {
-        // non-ok response is not an error! Issues happen in life!
-        // let us keep a count of failures to report
-        // However, this code doesn't count failures!
-        // Add a test below to catch this bug. Alter the stub above, if needed.
-        alertFailureCount += 0;
+        alertFailureCount += 1; // Increment failure count on non-200 response
     }
 }
 
+// Test function to validate alert behavior
+void testAlertInCelcius() {
+    alertFailureCount = 0; // Reset failure count
+    alertInCelcius(400.5); // Should trigger alert
+    assert(alertFailureCount == 1); // Expect 1 failure due to stub returning 500
+
+    alertFailureCount = 0; // Reset for next test
+    alertInCelcius(303.6); // Should trigger alert
+    assert(alertFailureCount == 1); // Expect 1 failure again
+}
+
 int main() {
-    alertInCelcius(400.5);
-    alertInCelcius(303.6);
+    testAlertInCelcius(); // Run tests
     printf("%d alerts failed.\n", alertFailureCount);
-    printf("All is well (maybe!)\n");
     return 0;
 }
