@@ -16,7 +16,7 @@ char size(int cms) {
 void testSize() {
     assert(size(37) == 'S'); // Expect Small
     assert(size(38) == 'M'); // Expect Medium (boundary case)
-    assert(size(40) == 'M'); // Expect Medium
+    assert(size(40) == 'L'); // <-- Deliberate failure here: 40 should be 'M', but test expects 'L'
     assert(size(42) == 'L'); // Expect Large (boundary case)
     assert(size(43) == 'L'); // Expect Large
 }
