@@ -1,36 +1,29 @@
 #include <stdio.h>
 #include <assert.h>
 
-int alertFailureCount = 0;
+// Function to print color map
+int printColorMap() {
+    const char* majorColor[] = {"White", "Red", "Black", "Yellow", "Violet"};
+    const char* minorColor[] = {"Blue", "Orange", "Green", "Brown", "Slate"};
+    int count = 0;
 
-// Stub function to simulate network alert
-int networkAlertStub(float celcius) {
-    printf("ALERT: Temperature is %.1f celcius.\n", celcius);
-    return 500;
-}
-
-// Function to convert Fahrenheit to Celsius and alert
-void alertInCelcius(float farenheit) {
-    float celcius = (farenheit - 32) * 5 / 9;
-    int returnCode = networkAlertStub(celcius);
-    if (returnCode != 200) {
-        alertFailureCount += 1; // Increment failure count on non-200 response
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            printf("%d | %s | %s\n", count, majorColor[i], minorColor[j]); // Fixed minorColor index
+            count++;
+        }
     }
+    return count; // Return total count of color pairs
 }
 
-// Test function to validate alert behavior
-void testAlertInCelcius() {
-    alertFailureCount = 0; // Reset failure count
-    alertInCelcius(400.5); // Should trigger alert
-    assert(alertFailureCount == 1); // Expect 1 failure due to stub returning 500
-
-    alertFailureCount = 0; // Reset for next test
-    alertInCelcius(303.6); // Should trigger alert
-    assert(alertFailureCount == 1); // Expect 1 failure again
+// Test function to validate color map printing
+void testPrintColorMap() {
+    int result = printColorMap();
+    assert(result == 25); // Expect 25 pairs
 }
 
 int main() {
-    testAlertInCelcius(); // Run tests
-    printf("%d alerts failed.\n", alertFailureCount);
+    testPrintColorMap(); // Run tests
+    printf("All is well (maybe!)\n");
     return 0;
 }
